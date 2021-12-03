@@ -18,11 +18,12 @@
         owner: apache
         group: apache
         mode: '0644'
+      register: index_html
       
     - name: Start and enable apache service
       when:
-        - apache_install is succeeded 
+        - index_html is changed
       systemd:
         name: httpd
-        state: started
+        state: restarted
         enabled: yes
